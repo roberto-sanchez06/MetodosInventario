@@ -14,8 +14,6 @@ namespace Domain.Interfaces
         Producto[] GetProductosByRangoPrecio(decimal low, decimal high);
         Producto[] GetProductosOrderByPrecio();
         string GetProductosAsJson();
-
         int GetLastProductoId();
-
     }
 }

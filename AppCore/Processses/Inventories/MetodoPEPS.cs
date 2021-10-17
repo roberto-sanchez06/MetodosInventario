@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using AppCore.Interfaces;
+using Domain.Entities.Productos;
 
 namespace AppCore.Processses.Inventories
 {
-    public class MetodoPEPS : IValoracionInventario
+    public class MetodoPEPS : ValoracionInventarioBase
     {
-        public decimal CalcularCostoVenta()
+        public override decimal CalcularCostoVenta(ref Entrada[] ent, Salida s)
         {
-            throw new NotImplementedException();
-        }
-
-        public decimal CalcularValorInventario()
-        {
-            throw new NotImplementedException();
+            if (s is null)
+            {
+                throw new ArgumentNullException("Salida nula");
+            }
+            decimal valor = ent[0].Precio;
+            Vender(ref ent, s.Cantidad);
+            return valor;
         }
     }
 }

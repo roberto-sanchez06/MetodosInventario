@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using AppCore.Interfaces;
+using Domain.Entities.Productos;
 
 namespace AppCore.Processses.Inventories
 {
     public class MetodoUEPS : IValoracionInventario
     {
-        public decimal CalcularCostoVenta()
+        public decimal CalcularCostoVenta(ref Entrada[] ent, Salida s)
         {
             throw new NotImplementedException();
         }

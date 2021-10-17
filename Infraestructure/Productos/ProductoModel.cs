@@ -149,7 +149,16 @@ namespace Infraestructure.Productos
 
         public int GetLastProductoId()
         {
-            return productos == null ? 0 : productos[productos.Length - 1].Id;
+            try
+            {
+
+                return productos == null ? 0 : productos[productos.Length - 1].Id;
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+                return 0;
+            }
         }
         #endregion
 
@@ -196,5 +205,15 @@ namespace Infraestructure.Productos
         }
     
         #endregion
+        // este metodo ponerlo en la interfaz
+        public int TotalExistencias() 
+        {
+            int cant = 0;
+            foreach (Producto p in productos)
+            {
+                cant += p.Existencia;
+            }
+            return cant;
+        }
     }
 }

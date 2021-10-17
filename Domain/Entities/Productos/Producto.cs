@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
+    //TODO clase modificada
     public class Producto
     {
         public int Id { get; set; }
@@ -31,6 +32,10 @@ namespace Domain.Entities
                     return 0;
                 }
             }
+        }
+        public string MostrarDatos()
+        {
+            return string.Format("{0,-5:d} {1,20} {2, 20:d} {3, 20:d}\n", Id, Nombre, FechaVencimiento, UnidadMedida);
         }
     }
 }

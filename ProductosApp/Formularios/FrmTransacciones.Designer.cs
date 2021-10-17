@@ -31,27 +31,30 @@ namespace ProductosApp.Formularios
         {
             this.rtbInventoryViewer = new System.Windows.Forms.RichTextBox();
             this.btnCompra = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.btnVenta = new System.Windows.Forms.Button();
-            this.btnVerInv = new System.Windows.Forms.Button();
-            this.cmbTipoValoracion = new System.Windows.Forms.ComboBox();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.cmbMovAlmacen = new System.Windows.Forms.ComboBox();
+            this.pnlCompra = new System.Windows.Forms.Panel();
+            this.nudPrecio = new System.Windows.Forms.NumericUpDown();
+            this.lblPrecio = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
+            this.pnlCompra.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             this.SuspendLayout();
             // 
             // rtbInventoryViewer
             // 
-            this.rtbInventoryViewer.Location = new System.Drawing.Point(12, 38);
+            this.rtbInventoryViewer.Location = new System.Drawing.Point(12, 60);
             this.rtbInventoryViewer.Name = "rtbInventoryViewer";
             this.rtbInventoryViewer.ReadOnly = true;
-            this.rtbInventoryViewer.Size = new System.Drawing.Size(776, 367);
+            this.rtbInventoryViewer.Size = new System.Drawing.Size(776, 345);
             this.rtbInventoryViewer.TabIndex = 0;
             this.rtbInventoryViewer.Text = "";
             // 
             // btnCompra
             // 
-            this.btnCompra.Location = new System.Drawing.Point(3, 3);
+            this.btnCompra.Location = new System.Drawing.Point(152, 26);
             this.btnCompra.Name = "btnCompra";
             this.btnCompra.Size = new System.Drawing.Size(111, 23);
             this.btnCompra.TabIndex = 1;
@@ -59,47 +62,30 @@ namespace ProductosApp.Formularios
             this.btnCompra.UseVisualStyleBackColor = true;
             this.btnCompra.Click += new System.EventHandler(this.btnCompra_Click);
             // 
-            // flowLayoutPanel1
+            // btnVolver
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnCompra);
-            this.flowLayoutPanel1.Controls.Add(this.btnVerInv);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(551, 411);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(237, 30);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.btnVolver.Location = new System.Drawing.Point(676, 418);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(112, 23);
+            this.btnVolver.TabIndex = 3;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // btnVenta
             // 
-            this.btnVenta.Location = new System.Drawing.Point(493, 9);
+            this.btnVenta.Location = new System.Drawing.Point(567, 23);
             this.btnVenta.Name = "btnVenta";
             this.btnVenta.Size = new System.Drawing.Size(103, 23);
             this.btnVenta.TabIndex = 2;
             this.btnVenta.Text = "Registrar Venta";
             this.btnVenta.UseVisualStyleBackColor = true;
+            this.btnVenta.Visible = false;
             this.btnVenta.Click += new System.EventHandler(this.btnVenta_Click);
-            // 
-            // btnVerInv
-            // 
-            this.btnVerInv.Location = new System.Drawing.Point(120, 3);
-            this.btnVerInv.Name = "btnVerInv";
-            this.btnVerInv.Size = new System.Drawing.Size(112, 23);
-            this.btnVerInv.TabIndex = 3;
-            this.btnVerInv.Text = "Ver inventario";
-            this.btnVerInv.UseVisualStyleBackColor = true;
-            this.btnVerInv.Click += new System.EventHandler(this.btnVerInv_Click);
-            // 
-            // cmbTipoValoracion
-            // 
-            this.cmbTipoValoracion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoValoracion.FormattingEnabled = true;
-            this.cmbTipoValoracion.Location = new System.Drawing.Point(12, 9);
-            this.cmbTipoValoracion.Name = "cmbTipoValoracion";
-            this.cmbTipoValoracion.Size = new System.Drawing.Size(267, 21);
-            this.cmbTipoValoracion.TabIndex = 3;
             // 
             // nudCantidad
             // 
-            this.nudCantidad.Location = new System.Drawing.Point(321, 9);
+            this.nudCantidad.Location = new System.Drawing.Point(248, 26);
             this.nudCantidad.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -119,21 +105,77 @@ namespace ProductosApp.Formularios
             0,
             0});
             // 
+            // cmbMovAlmacen
+            // 
+            this.cmbMovAlmacen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMovAlmacen.FormattingEnabled = true;
+            this.cmbMovAlmacen.Location = new System.Drawing.Point(12, 25);
+            this.cmbMovAlmacen.Name = "cmbMovAlmacen";
+            this.cmbMovAlmacen.Size = new System.Drawing.Size(215, 21);
+            this.cmbMovAlmacen.TabIndex = 5;
+            this.cmbMovAlmacen.SelectedIndexChanged += new System.EventHandler(this.cmbMovAlmacen_SelectedIndexChanged);
+            // 
+            // pnlCompra
+            // 
+            this.pnlCompra.Controls.Add(this.lblPrecio);
+            this.pnlCompra.Controls.Add(this.nudPrecio);
+            this.pnlCompra.Controls.Add(this.btnCompra);
+            this.pnlCompra.Location = new System.Drawing.Point(410, 0);
+            this.pnlCompra.Name = "pnlCompra";
+            this.pnlCompra.Size = new System.Drawing.Size(270, 54);
+            this.pnlCompra.TabIndex = 6;
+            this.pnlCompra.Visible = false;
+            // 
+            // nudPrecio
+            // 
+            this.nudPrecio.DecimalPlaces = 2;
+            this.nudPrecio.Location = new System.Drawing.Point(7, 26);
+            this.nudPrecio.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudPrecio.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPrecio.Name = "nudPrecio";
+            this.nudPrecio.Size = new System.Drawing.Size(120, 20);
+            this.nudPrecio.TabIndex = 0;
+            this.nudPrecio.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblPrecio
+            // 
+            this.lblPrecio.AutoSize = true;
+            this.lblPrecio.Location = new System.Drawing.Point(48, 10);
+            this.lblPrecio.Name = "lblPrecio";
+            this.lblPrecio.Size = new System.Drawing.Size(37, 13);
+            this.lblPrecio.TabIndex = 1;
+            this.lblPrecio.Text = "Precio";
+            // 
             // FrmTransacciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 453);
+            this.Controls.Add(this.pnlCompra);
+            this.Controls.Add(this.cmbMovAlmacen);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.nudCantidad);
-            this.Controls.Add(this.cmbTipoValoracion);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.btnVenta);
             this.Controls.Add(this.rtbInventoryViewer);
             this.Name = "FrmTransacciones";
             this.Text = "FrmTransacciones";
             this.Load += new System.EventHandler(this.FrmTransacciones_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
+            this.pnlCompra.ResumeLayout(false);
+            this.pnlCompra.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -142,10 +184,12 @@ namespace ProductosApp.Formularios
 
         private System.Windows.Forms.RichTextBox rtbInventoryViewer;
         private System.Windows.Forms.Button btnCompra;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnVenta;
-        private System.Windows.Forms.Button btnVerInv;
-        private System.Windows.Forms.ComboBox cmbTipoValoracion;
+        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.NumericUpDown nudCantidad;
+        private System.Windows.Forms.ComboBox cmbMovAlmacen;
+        private System.Windows.Forms.Panel pnlCompra;
+        private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.NumericUpDown nudPrecio;
     }
 }

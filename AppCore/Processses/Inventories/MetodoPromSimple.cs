@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using AppCore.Interfaces;
+using Domain.Entities.Productos;
 
 namespace AppCore.Processses.Inventories
 {
-    public class MetodoPromSimple : IValoracionInventario
+    public class MetodoPromSimple : ValoracionInventarioBase
     {
-        public decimal CalcularCostoVenta()
+        public override decimal CalcularCostoVenta(ref Entrada[] ent, Salida s)
         {
-            throw new NotImplementedException();
-        }
-
-        public decimal CalcularValorInventario()
-        {
-            throw new NotImplementedException();
+            decimal costo = 0M;
+            foreach(Entrada e in ent)
+            {
+                costo += e.Precio;
+            }
+            return costo / ent.Length ;
         }
     }
 }
