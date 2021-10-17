@@ -11,13 +11,14 @@ using AppCore.Interfaces;
 using AppCore.Services;
 using Domain.Entities;
 using Domain.Enums;
+using Domain.Interfaces;
 
 namespace ProductosApp.Formularios
 {
     public partial class FrmProductManager : Form
     {
-        private IProductoService prodService;
-        public FrmProductManager(IProductoService productoService)
+        private IMovimientoService prodService;
+        public FrmProductManager(IMovimientoService productoService)
         {
             this.prodService = productoService;
             InitializeComponent();
@@ -39,8 +40,8 @@ namespace ProductosApp.Formularios
                 {
                     throw new ArgumentException("No selecciono ningun metodo");
                 }
-                Producto prod=prodService.GetProductoById(int.Parse(txtFinder.Text));
-                new FrmTransacciones(prod);
+                //Producto prod=prodService.GetProductoById(int.Parse(txtFinder.Text));
+                //new FrmTransacciones(prod);
             }
             catch (Exception ex)
             {
@@ -51,13 +52,13 @@ namespace ProductosApp.Formularios
         private void btnAdd_Click(object sender, EventArgs e)
         {
             FrmProducto frmProducto = new FrmProducto();
-            frmProducto.PModel = prodService;
+            //frmProducto.PModel = prodService;
             frmProducto.ShowDialog();
             rtbProductViewer.Text = "";
-            foreach (Producto p in prodService.FindAll())
-            {
-                rtbProductViewer.AppendText(p.MostrarDatos());
-            }
+            //foreach (Producto p in prodService.FindAll())
+            //{
+            //    rtbProductViewer.AppendText(p.MostrarDatos());
+            //}
             //rtbProductViewer.Text=(prodService.GetType().ToString());
             //Type t= prodService.GetType();
         }

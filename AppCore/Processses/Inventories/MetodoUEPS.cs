@@ -13,7 +13,17 @@ namespace AppCore.Processses.Inventories
             throw new NotImplementedException();
         }
 
+        public decimal CalcularValorExist(MovAlmacen[] ma)
+        {
+            throw new NotImplementedException();
+        }
+
         public decimal CalcularValorInventario()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Vender(ref Entrada[] ent, int salida)
         {
             throw new NotImplementedException();
         }

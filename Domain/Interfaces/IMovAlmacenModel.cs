@@ -7,7 +7,7 @@ using Domain.Enums;
 namespace Domain.Interfaces
 {
     //TODO ver si ocupa todos los metodo de IModel
-    public interface IMovAlmacenModel : IModel<MovAlmacen>
+    public interface IMoviemntoService : IModel<MovAlmacen>
     {
         Entrada[] GetEntradas();
         Salida[] GetSalidas();

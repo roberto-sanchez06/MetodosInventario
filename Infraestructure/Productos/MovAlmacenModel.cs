@@ -7,7 +7,7 @@ using Domain.Interfaces;
 
 namespace Infraestructure.Productos
 {
-    public class MovAlmacenModel : IMovAlmacenModel
+    public class MovAlmacenModel : IMoviemntoService
     {
         private MovAlmacen[] movimientos;
         public void Create(MovAlmacen t)

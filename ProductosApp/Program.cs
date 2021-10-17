@@ -28,10 +28,12 @@ namespace ProductosApp
             builder.RegisterType<ProductoListModel>().As<IProductoModel>();
             builder.RegisterType<ProductoModel>().As<IProductoModel>();
             builder.RegisterType<ProductoService>().As<IProductoService>();
+            builder.RegisterType<MovAlmacenModel>().As<IMoviemntoService>();
+            builder.RegisterType<MovimientoService>().As<IMovimientoService>();
             var container = builder.Build();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmProductManager(container.Resolve<IProductoService>()));
+            Application.Run(new FrmProductManager(container.Resolve<IMovimientoService>()));
             //Application.Run(new FrmTransacciones());
         }
     }
