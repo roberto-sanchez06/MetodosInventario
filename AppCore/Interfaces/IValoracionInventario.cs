@@ -7,8 +7,8 @@ namespace AppCore.Interfaces
 {
     public interface IValoracionInventario
     {
-        decimal CalcularCostoVenta(ref Entrada[] ent, Salida s);
+        decimal CalcularCostoVenta(ref IMovimientoService ent, Salida s);
         decimal CalcularValorExist(MovAlmacen[] ma );
-        void Vender(ref Entrada[] ent, int salida);
+        void Vender(ref IMovimientoService ent, int salida);
     }
 }

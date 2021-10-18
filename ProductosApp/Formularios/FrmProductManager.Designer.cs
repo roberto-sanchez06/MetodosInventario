@@ -47,11 +47,11 @@ namespace ProductosApp.Formularios
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(655, 375);
+            this.btnAdd.Location = new System.Drawing.Point(594, 375);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(133, 23);
+            this.btnAdd.Size = new System.Drawing.Size(194, 23);
             this.btnAdd.TabIndex = 1;
-            this.btnAdd.Text = "Añadir nuevo producto";
+            this.btnAdd.Text = "Realizar compra de un producto diferente";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 

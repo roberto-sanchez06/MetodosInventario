@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AppCore.Interfaces;
 using AppCore.Services;
 using Domain.Entities;
+using Domain.Entities.Productos;
 using Domain.Enums;
 using Domain.Interfaces;
 
@@ -17,10 +18,12 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmProductManager : Form
     {
-        private IMovimientoService prodService;
-        public FrmProductManager(IMovimientoService productoService)
+        private IMovimientoService movimientoService;
+        private IProdService prodService;
+        public FrmProductManager(IMovimientoService movimientoService, IProdService prodService)
         {
-            this.prodService = productoService;
+            this.prodService=prodService;
+            this.movimientoService = movimientoService;
             InitializeComponent();
         }
         private void txtFinder_KeyPress(object sender, KeyPressEventArgs e)
@@ -40,8 +43,11 @@ namespace ProductosApp.Formularios
                 {
                     throw new ArgumentException("No selecciono ningun metodo");
                 }
-                //Producto prod=prodService.GetProductoById(int.Parse(txtFinder.Text));
-                //new FrmTransacciones(prod);
+                Product p=prodService.GetProductById(int.Parse(txtFinder.Text));
+                FrmTransacciones frmTrans = new FrmTransacciones();
+                frmTrans.prod = p;
+                frmTrans.mov = movimientoService;
+                frmTrans.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -51,16 +57,16 @@ namespace ProductosApp.Formularios
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FrmProducto frmProducto = new FrmProducto();
-            //frmProducto.PModel = prodService;
-            frmProducto.ShowDialog();
-            rtbProductViewer.Text = "";
-            //foreach (Producto p in prodService.FindAll())
+            FormInventario frmInv = new FormInventario();
+            frmInv.movimientoService = movimientoService;
+            frmInv.prodService = prodService;
+            frmInv.ShowDialog();
+            //rtbProductViewer.Text = "";
+            //foreach (Product p in prodService.FindAll())
             //{
-            //    rtbProductViewer.AppendText(p.MostrarDatos());
+            //    rtbProductViewer.AppendText(p.Nombre+"\n");
             //}
-            //rtbProductViewer.Text=(prodService.GetType().ToString());
-            //Type t= prodService.GetType();
+            rtbProductViewer.Text += movimientoService.FindAll()[prodService.GetLastProductId()-1].Producto.Descripcion;
         }
 
         private void FrmProductManager_Load(object sender, EventArgs e)

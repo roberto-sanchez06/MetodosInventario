@@ -37,6 +37,26 @@ namespace Infraestructure.Productos
             }
             return (Entrada[])entradas;
         }
+
+        public Entrada[] GetEntradas(Product p)
+        {
+            MovAlmacen[] movs = null;
+            if (p is null)
+            {
+                throw new ArgumentNullException("Producto nulo");
+            }
+
+            foreach (Entrada m in GetEntradas())
+            {
+                //TODO revisar aqui
+                if (m.Producto.Equals(p))
+                {
+                    Add(m, ref movs);
+                }
+            }
+            return (Entrada[])movs;
+        }
+
         //TODO: revisar si este metodo debe de ir
         public int GetExistencias()
         {
@@ -47,6 +67,26 @@ namespace Infraestructure.Productos
             }
             return cant;
         }
+
+        public MovAlmacen[] GetMovimientosByProducto(Product p)
+        {
+            MovAlmacen[] movs=null;
+            if (p is null)
+            {
+                throw new ArgumentNullException("PRODUCTO nulo");
+            }
+
+            foreach (MovAlmacen m in movimientos)
+            {
+                //TODO revisar aqui
+                if (m.Producto.Equals(p))
+                {
+                    Add(m, ref movs);
+                }
+            }
+            return movs;
+        }
+
         //TODO revisar
         public Salida[] GetSalidas()
         {
@@ -59,6 +99,25 @@ namespace Infraestructure.Productos
                 }
             }
             return (Salida[])salidas;
+        }
+
+        public Salida[] GetSalidas(Product p)
+        {
+            MovAlmacen[] movs = null;
+            if (p is null)
+            {
+                throw new ArgumentNullException("Producto nulo");
+            }
+
+            foreach (Salida m in GetSalidas())
+            {
+                //TODO revisar aqui
+                if (m.Producto.Equals(p))
+                {
+                    Add(m, ref movs);
+                }
+            }
+            return (Salida[])movs;
         }
 
         public int Update(MovAlmacen t)

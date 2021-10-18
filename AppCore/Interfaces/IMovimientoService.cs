@@ -10,5 +10,10 @@ namespace AppCore.Interfaces
         Entrada[] GetEntradas();
         Salida[] GetSalidas();
         int GetExistencias();
+        MovAlmacen[] GetMovimientosByProducto(Product p);
+        //obtener entradas de un producto especifico
+        Entrada[] GetEntradas(Product p);
+        //obtener salidas de un producto especifico
+        Salida[] GetSalidas(Product p);
     }
 }

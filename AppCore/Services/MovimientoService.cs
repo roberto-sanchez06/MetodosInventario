@@ -37,14 +37,29 @@ namespace AppCore.Services
             return MovModel.GetEntradas();
         }
 
+        public Entrada[] GetEntradas(Product p)
+        {
+            return MovModel.GetEntradas(p);
+        }
+
         public int GetExistencias()
         {
             return MovModel.GetExistencias();
         }
 
+        public MovAlmacen[] GetMovimientosByProducto(Product p)
+        {
+            return MovModel.GetMovimientosByProducto(p);
+        }
+
         public Salida[] GetSalidas()
         {
             return MovModel.GetSalidas();
+        }
+
+        public Salida[] GetSalidas(Product p)
+        {
+            return MovModel.GetSalidas(p);
         }
 
         public int Update(MovAlmacen t)

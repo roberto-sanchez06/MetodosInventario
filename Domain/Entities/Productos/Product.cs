@@ -5,7 +5,7 @@ using Domain.Enums;
 
 namespace Domain.Entities.Productos
 {
-    //TODO creacion de una nueva clase para no modificar la clase producto por si la ocupamos mas adelante
+    //TODO creacion de una nueva clase para no modificar la clase producto por si la ocupamos en futuros proyectos
     public class Product
     {
         public int Id { get; set; }

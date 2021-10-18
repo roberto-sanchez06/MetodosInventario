@@ -8,14 +8,14 @@ namespace AppCore.Processses.Inventories
 {
     public class MetodoPEPS : ValoracionInventarioBase
     {
-        public override decimal CalcularCostoVenta(ref Entrada[] ent, Salida s)
+        public override decimal CalcularCostoVenta(ref IMovimientoService en, Salida s)
         {
             if (s is null)
             {
                 throw new ArgumentNullException("Salida nula");
             }
-            decimal valor = ent[0].Precio;
-            Vender(ref ent, s.Cantidad);
+            decimal valor = en.GetEntradas()[0].Precio;
+            Vender(ref en, s.Cantidad);
             return valor;
         }
     }

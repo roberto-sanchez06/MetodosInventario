@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AppCore.Factories;
 using AppCore.Interfaces;
 using Domain.Entities;
+using Domain.Entities.Productos;
 using Domain.Enums;
 
 namespace ProductosApp.Formularios
 {
     public partial class FrmTransacciones : Form
     {
-        private IProductoService productoService;
-        private Producto p;
-        public FrmTransacciones(Producto p)
+        public Product prod { get; set; }
+        public IMovimientoService mov { get; set; }
+        public ValoracionInventario vi { get; set; }
+        public FrmTransacciones()
         {
-            this.p = p;
+            //this.prod = prod;
+            //this.mov = mov;
             InitializeComponent();
         }
 
@@ -27,7 +31,13 @@ namespace ProductosApp.Formularios
         {
             try
             {
-                
+                Entrada ent = new Entrada((int)nudCantidad.Value, DateTime.Now, prod)
+                {
+                    Precio = nudPrecio.Value,
+                    PrecioTotal = nudPrecio.Value * (int)nudCantidad.Value
+                };
+                mov.Create(ent);
+                ent.MostrarDatos();
             }
             catch (Exception ex)
             {
@@ -39,6 +49,10 @@ namespace ProductosApp.Formularios
         {
             cmbMovAlmacen.Items.AddRange(Enum.GetValues(typeof(MovimientoAlmacen)).Cast<object>().ToArray());
             //cmbTipoValoracion.Items.AddRange(Enum.GetValues(typeof(ValoracionInventario)).Cast<object>().ToArray());
+            foreach (MovAlmacen m in mov.GetMovimientosByProducto(prod))
+            {
+                rtbInventoryViewer.AppendText(m.MostrarDatos());
+            }
         }
 
         private void cmbMovAlmacen_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,6 +79,8 @@ namespace ProductosApp.Formularios
         {
             try
             {
+                Salida s = new Salida((int)nudCantidad.Value,DateTime.Now,prod);
+                //ValoracionInventarioFactory.CreateInstance(vi).CalcularCostoVenta(ref mov,s);
             }
             catch (Exception ex)
             {
