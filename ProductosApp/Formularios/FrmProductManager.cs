@@ -52,7 +52,8 @@ namespace ProductosApp.Formularios
                 {
                     throw new ArgumentException("Producto no encontrado");
                 }
-                FrmTransacciones frmTrans = new FrmTransacciones(new InventarioService(InventarioValoracionFactory.CreateInstance((ValoracionInventario)cmbValoracionInv.SelectedIndex)), p);
+                rtbProductViewer.Text=cmbValoracionInv.SelectedIndex.ToString();
+                FrmTransacciones frmTrans = new FrmTransacciones(new InventarioService(InventarioValoracionFactory.CreateInstance((ValoracionInventario)cmbValoracionInv.SelectedIndex)), p, cmbValoracionInv.SelectedIndex);
                 //frmTrans.prod = p;
                 //frmTrans.mov = movimientoService;
                 frmTrans.ShowDialog();

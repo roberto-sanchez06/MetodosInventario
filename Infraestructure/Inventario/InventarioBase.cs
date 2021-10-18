@@ -17,6 +17,11 @@ namespace Infraestructure.Inventario
         protected decimal totalVentas=0;
         public void Add(Producto t)
         {
+            existencias += t.Existencia;
+            valorInventario += t.Existencia * t.Precio;
+            //revisar estas linea
+            noCompras++;
+            totalCompras += t.Precio;
             if (productos == null)
             {
                 productos = new Producto[1];
@@ -28,11 +33,6 @@ namespace Infraestructure.Inventario
             Array.Copy(productos, tmp, productos.Length);
             tmp[tmp.Length - 1] = t;
             productos = tmp;
-            existencias += t.Existencia;
-            valorInventario += t.Existencia * t.Precio;
-            //revisar estas linea
-            noCompras++;
-            totalCompras += t.Precio;
         }
 
         public int ObtenerExistencias()

@@ -19,13 +19,15 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmTransacciones : Form
     {
-        private IInventarioService inventario;
+        private InventarioService inventario;
         private Producto p;
-        public FrmTransacciones(IInventarioService inventario, Producto p)
+        private int i;
+        public FrmTransacciones(InventarioService inventario, Producto p, int i)
         {
             InitializeComponent();
             this.inventario = inventario;
             this.p = p;
+            this.i = i;
             inventario.Add(p);
         }
 
@@ -45,7 +47,7 @@ namespace ProductosApp.Formularios
                     //la fecha es en tiempo real
                     FechaAdquisicion=DateTime.Now
                 };
-                inventario.Add(p);
+                inventario.Add(prod);
                 rtbInventoryViewer.AppendText("(Nueva entrada): "+prod.MostrarDatos());
             }
             catch (Exception ex)
@@ -56,9 +58,10 @@ namespace ProductosApp.Formularios
 
         private void FrmTransacciones_Load(object sender, EventArgs e)
         {
+            rtbInventoryViewer.Text = i.ToString();
             cmbMovAlmacen.Items.AddRange(Enum.GetValues(typeof(MovimientoAlmacen)).Cast<object>().ToArray());
             //cmbTipoValoracion.Items.AddRange(Enum.GetValues(typeof(ValoracionInventario)).Cast<object>().ToArray());
-            rtbInventoryViewer.Text = string.Format("{0,33:d} {1,20:d} {2,22: d} {3,20:f} {4,20:f} \n",
+            rtbInventoryViewer.Text += string.Format("{0,33:d} {1,20:d} {2,22: d} {3,20:f} {4,20:f} \n",
                                 "Id", "Fecha", "Cant", "Costo Uni", "Costo Total");
             rtbInventoryViewer.Text += "(Inventario Inicial): ";
             foreach (Producto p in inventario.FindAll())
