@@ -8,10 +8,6 @@ namespace AppCore.Processses.Inventories
 {
     public class MetodoPromSimple : ValoracionInventarioBase
     {
-       
-   
-        
-
         public override decimal CalcularCostoVenta(ref IMovimientoService ent, Salida s)
         {
             decimal costo = 0M;

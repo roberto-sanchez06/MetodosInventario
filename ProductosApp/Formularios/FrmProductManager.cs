@@ -44,9 +44,13 @@ namespace ProductosApp.Formularios
                     throw new ArgumentException("No selecciono ningun metodo");
                 }
                 Product p=prodService.GetProductById(int.Parse(txtFinder.Text));
-                FrmTransacciones frmTrans = new FrmTransacciones();
-                frmTrans.prod = p;
-                frmTrans.mov = movimientoService;
+                if(p == null)
+                {
+                    throw new ArgumentException("Producto no encontrado");
+                }
+                FrmTransacciones frmTrans = new FrmTransacciones(p, movimientoService, (ValoracionInventario)cmbValoracionInv.SelectedIndex);
+                //frmTrans.prod = p;
+                //frmTrans.mov = movimientoService;
                 frmTrans.ShowDialog();
             }
             catch (Exception ex)

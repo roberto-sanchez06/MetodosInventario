@@ -17,13 +17,14 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmTransacciones : Form
     {
-        public Product prod { get; set; }
-        public IMovimientoService mov { get; set; }
-        public ValoracionInventario vi { get; set; }
-        public FrmTransacciones()
+        private Product prod;
+        private IMovimientoService mov;
+        private ValoracionInventario vi;
+        public FrmTransacciones(Product prod, IMovimientoService mov, ValoracionInventario vi)
         {
-            //this.prod = prod;
-            //this.mov = mov;
+            this.vi = vi;
+            this.prod = prod;
+            this.mov = mov;
             InitializeComponent();
         }
 
@@ -37,7 +38,7 @@ namespace ProductosApp.Formularios
                     PrecioTotal = nudPrecio.Value * (int)nudCantidad.Value
                 };
                 mov.Create(ent);
-                ent.MostrarDatos();
+                rtbInventoryViewer.AppendText(ent.MostrarDatos());
             }
             catch (Exception ex)
             {
@@ -77,15 +78,17 @@ namespace ProductosApp.Formularios
 
         private void btnVenta_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 Salida s = new Salida((int)nudCantidad.Value,DateTime.Now,prod);
-                //ValoracionInventarioFactory.CreateInstance(vi).CalcularCostoVenta(ref mov,s);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                s.Precio=ValoracionInventarioFactory.CreateInstance(vi).CalcularCostoVenta(ref mov,s);
+                s.PrecioTotal = s.Precio * s.Cantidad;
+                rtbInventoryViewer.AppendText(s.MostrarDatos());
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
         //private void VerificarSeleccion()
         //{

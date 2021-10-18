@@ -4,6 +4,7 @@ using System.Text;
 using Domain.Entities.Productos;
 using Domain.Entities;
 using Domain.Interfaces;
+using Newtonsoft.Json;
 
 namespace Infraestructure.Productos
 {
@@ -35,7 +36,10 @@ namespace Infraestructure.Productos
                     Add(m, ref entradas);
                 }
             }
-            return (Entrada[])entradas;
+            // me daba un error si no hacia eso
+            string s = JsonConvert.SerializeObject(entradas);
+            Entrada[] ent = JsonConvert.DeserializeObject<List<Entrada>>(s).ToArray();
+            return ent;
         }
 
         public Entrada[] GetEntradas(Product p)
@@ -45,16 +49,21 @@ namespace Infraestructure.Productos
             {
                 throw new ArgumentNullException("Producto nulo");
             }
-
+            //string s = JsonConvert.SerializeObject(p);
+            //Product pr = JsonConvert.DeserializeObject<Product>(s);
             foreach (Entrada m in GetEntradas())
             {
                 //TODO revisar aqui
-                if (m.Producto.Equals(p))
+                //no me entraba al if si ponia con el metodo equals
+                if (m.Producto.Id==p.Id && m.Producto.Nombre == p.Nombre && m.Producto.Descripcion ==p.Descripcion
+                    && m.Producto.FechaVencimiento ==p.FechaVencimiento && m.Producto.UnidadMedida ==p.UnidadMedida)
                 {
                     Add(m, ref movs);
                 }
             }
-            return (Entrada[])movs;
+            string st = JsonConvert.SerializeObject(movs);
+            Entrada[] ent = JsonConvert.DeserializeObject<List<Entrada>>(st).ToArray();
+            return ent;
         }
 
         //TODO: revisar si este metodo debe de ir
