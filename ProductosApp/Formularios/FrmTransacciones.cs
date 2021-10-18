@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppCore.Factories;
 using AppCore.Interfaces;
+using AppCore.Interfaces.Inventario;
+using AppCore.Services.Inventario;
 using Domain.Entities;
 using Domain.Entities.Productos;
 using Domain.Enums;
@@ -17,30 +19,34 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmTransacciones : Form
     {
-        private Product prod;
-        private IMovimientoService mov;
-        private ValoracionInventario vi;
-        public FrmTransacciones(Product prod, IMovimientoService mov, ValoracionInventario vi)
+        private IInventarioService inventario;
+        private Producto p;
+        public FrmTransacciones(IInventarioService inventario, Producto p)
         {
-            this.vi = vi;
-            this.prod = prod;
-            this.mov = mov;
             InitializeComponent();
+            this.inventario = inventario;
+            this.p = p;
+            inventario.Add(p);
         }
 
         private void btnCompra_Click(object sender, EventArgs e)
         {
             try
             {
-                Entrada ent = new Entrada((int)nudCantidad.Value, DateTime.Now, prod)
+                Producto prod = new Producto()
                 {
-                    Precio = nudPrecio.Value,
-                    PrecioTotal = nudPrecio.Value * (int)nudCantidad.Value,
-                    Id = mov.GetLastIdMov() + 1
+                    Id = p.Id,
+                    Nombre = p.Nombre,
+                    Descripcion = p.Descripcion,
+                    FechaVencimiento = p.FechaVencimiento,
+                    UnidadMedida = p.UnidadMedida,
+                    Existencia = (int)nudCantidad.Value,
+                    Precio=nudPrecio.Value,
+                    //la fecha es en tiempo real
+                    FechaAdquisicion=DateTime.Now
                 };
-                mov.Create(ent);
-                rtbInventoryViewer.AppendText(ent.MostrarDatos());
-                rtbInventoryViewer.AppendText("\t" + ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString() + "\n");
+                inventario.Add(p);
+                rtbInventoryViewer.AppendText("(Nueva entrada): "+prod.MostrarDatos());
             }
             catch (Exception ex)
             {
@@ -52,11 +58,14 @@ namespace ProductosApp.Formularios
         {
             cmbMovAlmacen.Items.AddRange(Enum.GetValues(typeof(MovimientoAlmacen)).Cast<object>().ToArray());
             //cmbTipoValoracion.Items.AddRange(Enum.GetValues(typeof(ValoracionInventario)).Cast<object>().ToArray());
-            foreach (MovAlmacen m in mov.GetMovimientosByProducto(prod))
+            rtbInventoryViewer.Text = string.Format("{0,33:d} {1,20:d} {2,22: d} {3,20:f} {4,20:f} \n",
+                                "Id", "Fecha", "Cant", "Costo Uni", "Costo Total");
+            rtbInventoryViewer.Text += "(Inventario Inicial): ";
+            foreach (Producto p in inventario.FindAll())
             {
-                rtbInventoryViewer.AppendText(m.MostrarDatos());
+                rtbInventoryViewer.AppendText(p.MostrarDatos());
             }
-            rtbInventoryViewer.AppendText("\t"+ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString()+"\n");
+            //rtbInventoryViewer.AppendText("\t"+ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString()+"\n");
         }
 
         private void cmbMovAlmacen_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,24 +92,15 @@ namespace ProductosApp.Formularios
         {
             //try
             //{
-                Salida s = new Salida((int)nudCantidad.Value, DateTime.Now, prod) { Id = mov.GetLastIdMov() + 1 };
-                s.Precio=ValoracionInventarioFactory.CreateInstance(vi).CalcularCostoVenta(ref mov,s);
-                s.PrecioTotal = s.Precio * s.Cantidad;
-                mov.Create(s);
-                rtbInventoryViewer.AppendText(s.MostrarDatos());
-                rtbInventoryViewer.AppendText("\t" + ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString() + "\n");
+            int salida = (int)nudCantidad.Value;
+            decimal precio = inventario.CalcularValorSalida(salida);
+            rtbInventoryViewer.AppendText("(Nueva salida): "+string.Format("{0,-3:d} {1,20:d} {2,10: d} {3,20:f} {4,20:f} \n",
+                            $"{p.Id}", $"{DateTime.Now}", $"{salida}", $"{precio}", $"{ precio * salida }"));
             //}
             //catch (Exception ex)
             //{
             //    MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
         }
-        //private void VerificarSeleccion()
-        //{
-        //    if (cmbMovAlmacen.SelectedIndex == -1)
-        //    {
-        //        throw new ArgumentException("No seleccionó nada");
-        //    }
-        //}
     }
 }

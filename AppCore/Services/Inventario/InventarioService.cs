@@ -18,52 +18,57 @@ namespace AppCore.Services.Inventario
 
         public void Add(Producto t)
         {
-            throw new NotImplementedException();
+            inventarioModel.Add(t);
         }
 
         public decimal CalcularValorSalida(int salida)
         {
-            throw new NotImplementedException();
+            return inventarioModel.CalcularValorSalida(salida);
         }
 
-        public bool Delete(Producto t)
+        public bool Delete(int i)
         {
-            throw new NotImplementedException();
+            return inventarioModel.Delete(i);
+        }
+
+        public Producto[] FindAll()
+        {
+            return inventarioModel.FindAll();
         }
 
         public int GetnoCompras()
         {
-            throw new NotImplementedException();
+            return inventarioModel.GetnoCompras();
         }
 
         public int GetnoSalidas()
         {
-            throw new NotImplementedException();
+            return inventarioModel.GetnoSalidas();
         }
 
         public decimal GetTotalCompras()
         {
-            throw new NotImplementedException();
+            return inventarioModel.GetTotalCompras();
         }
 
         public decimal GetTotalValorInventario()
         {
-            throw new NotImplementedException();
+            return inventarioModel.GetTotalValorInventario();
         }
 
         public decimal GetTotalVentas()
         {
-            throw new NotImplementedException();
+            return inventarioModel.GetTotalVentas();
         }
 
         public int ObtenerExistencias()
         {
-            throw new NotImplementedException();
+            return inventarioModel.ObtenerExistencias();
         }
 
         public void Vender(int uni)
         {
-            throw new NotImplementedException();
+            inventarioModel.Vender(uni);
         }
     }
 }

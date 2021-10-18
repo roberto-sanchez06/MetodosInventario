@@ -32,20 +32,28 @@ namespace ProductosApp.Formularios
 
         private void BtnOk_Click(object sender, EventArgs e)
         {
-            Producto p = new Producto()
+            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDesc.Text) || cmbMeasureUnit.SelectedIndex == -1)
             {
-                Id = PModel.GetLastProductoId() + 1,
-                Nombre = txtNombre.Text,
-                Descripcion = txtDesc.Text,
-                Existencia = (int)nudExist.Value,
-                Precio = nudPrice.Value,
-                FechaVencimiento = dtpCaducity.Value,
-                UnidadMedida = (UnidadMedida)cmbMeasureUnit.SelectedIndex
-            };
+                MessageBox.Show("hay algun campo vacio porfavor llenelo");
 
-            PModel.Create(p);
-
-            Dispose();
+            }
+            else
+            {
+                Producto p = new Producto()
+                {
+                    Id = PModel.GetLastProductoId() + 1,
+                    Nombre = txtNombre.Text,
+                    Descripcion = txtDesc.Text,
+                    Existencia = (int)nudExist.Value,
+                    Precio = nudPrice.Value,
+                    FechaVencimiento = dtpCaducity.Value,
+                    UnidadMedida = (UnidadMedida)cmbMeasureUnit.SelectedIndex,
+                    //registro la fecha de adquisicion en tiempo real
+                    FechaAdquisicion = DateTime.Now
+                };
+                PModel.Create(p);
+                Dispose();
+            }
         }
     }
 }

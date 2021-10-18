@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AppCore.Factories.Inventario;
 using AppCore.Interfaces;
 using AppCore.Services;
+using AppCore.Services.Inventario;
 using Domain.Entities;
 using Domain.Entities.Productos;
 using Domain.Enums;
@@ -18,13 +20,15 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmProductManager : Form
     {
-        private IMovimientoService movimientoService;
-        private IProdService prodService;
-        public FrmProductManager(IMovimientoService movimientoService, IProdService prodService)
+        //private IMovimientoService movimientoService;
+        //private IProdService prodService;
+        private IProductoService productoService;
+        public FrmProductManager(IProductoService productoService)
         {
-            this.prodService=prodService;
-            this.movimientoService = movimientoService;
+            //this.prodService=prodService;
+            //this.movimientoService = movimientoService;
             InitializeComponent();
+            this.productoService = productoService;
         }
         private void txtFinder_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -43,12 +47,12 @@ namespace ProductosApp.Formularios
                 {
                     throw new ArgumentException("No selecciono ningun metodo");
                 }
-                Product p=prodService.GetProductById(int.Parse(txtFinder.Text));
-                if(p == null)
+                Producto p = productoService.GetProductoById(int.Parse(txtFinder.Text));
+                if (p == null)
                 {
                     throw new ArgumentException("Producto no encontrado");
                 }
-                FrmTransacciones frmTrans = new FrmTransacciones(p, movimientoService, (ValoracionInventario)cmbValoracionInv.SelectedIndex);
+                FrmTransacciones frmTrans = new FrmTransacciones(new InventarioService(InventarioValoracionFactory.CreateInstance((ValoracionInventario)cmbValoracionInv.SelectedIndex)), p);
                 //frmTrans.prod = p;
                 //frmTrans.mov = movimientoService;
                 frmTrans.ShowDialog();
@@ -61,21 +65,11 @@ namespace ProductosApp.Formularios
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FormInventario frmInv = new FormInventario();
-            frmInv.movimientoService = movimientoService;
-            frmInv.prodService = prodService;
-            frmInv.ShowDialog();
-            rtbProductViewer.Text = "";
-            foreach (Product p in prodService.FindAll())
-            {
-                rtbProductViewer.AppendText(p.Id+"\t"+p.Nombre+"\n");
-            }
-            rtbProductViewer.Text = "";
-            //rtbProductViewer.AppendText(movimientoService.FindAll()[prodService.GetLastProductId()-1].Producto.Nombre);
-            foreach (MovAlmacen p in movimientoService.FindAll())
-            {
-                rtbProductViewer.AppendText(movimientoService.FindAll()[prodService.GetLastProductId() - 1].Producto.Nombre);
-            }
+            FrmProducto frmProducto= new FrmProducto();
+            frmProducto.PModel = productoService;
+            frmProducto.ShowDialog();
+            rtbProductViewer.Text = "Mostrando datos de los productos a valorar, los cuales sirven de inventario inicial\n";
+            rtbProductViewer.AppendText(productoService.GetProductosAsJson());
         }
 
         private void FrmProductManager_Load(object sender, EventArgs e)
@@ -85,11 +79,7 @@ namespace ProductosApp.Formularios
 
         private void button1_Click(object sender, EventArgs e)
         {
-            rtbProductViewer.Text = "";
-            foreach (Entrada en in movimientoService.GetEntradas(prodService.GetProductById(int.Parse(txtFinder.Text))))
-            {
-                rtbProductViewer.AppendText("Id: "+en.Id+"\t"+"Nombre: "+en.Producto.Nombre+"\t"+"Cant: "+en.CantidadDisponible+"\tEntradaVendida: "+en.EntradaVendida.ToString());
-            }
+
         }
     }
 }

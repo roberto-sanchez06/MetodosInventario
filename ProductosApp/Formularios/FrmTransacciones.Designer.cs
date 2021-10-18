@@ -36,8 +36,9 @@ namespace ProductosApp.Formularios
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.cmbMovAlmacen = new System.Windows.Forms.ComboBox();
             this.pnlCompra = new System.Windows.Forms.Panel();
-            this.nudPrecio = new System.Windows.Forms.NumericUpDown();
             this.lblPrecio = new System.Windows.Forms.Label();
+            this.nudPrecio = new System.Windows.Forms.NumericUpDown();
+            this.lblCantidad = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.pnlCompra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
@@ -85,7 +86,7 @@ namespace ProductosApp.Formularios
             // 
             // nudCantidad
             // 
-            this.nudCantidad.Location = new System.Drawing.Point(248, 26);
+            this.nudCantidad.Location = new System.Drawing.Point(253, 26);
             this.nudCantidad.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -126,6 +127,15 @@ namespace ProductosApp.Formularios
             this.pnlCompra.TabIndex = 6;
             this.pnlCompra.Visible = false;
             // 
+            // lblPrecio
+            // 
+            this.lblPrecio.AutoSize = true;
+            this.lblPrecio.Location = new System.Drawing.Point(48, 10);
+            this.lblPrecio.Name = "lblPrecio";
+            this.lblPrecio.Size = new System.Drawing.Size(37, 13);
+            this.lblPrecio.TabIndex = 1;
+            this.lblPrecio.Text = "Precio";
+            // 
             // nudPrecio
             // 
             this.nudPrecio.DecimalPlaces = 2;
@@ -149,20 +159,21 @@ namespace ProductosApp.Formularios
             0,
             0});
             // 
-            // lblPrecio
+            // lblCantidad
             // 
-            this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(48, 10);
-            this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(37, 13);
-            this.lblPrecio.TabIndex = 1;
-            this.lblPrecio.Text = "Precio";
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Location = new System.Drawing.Point(289, 9);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(49, 13);
+            this.lblCantidad.TabIndex = 7;
+            this.lblCantidad.Text = "Cantidad";
             // 
             // FrmTransacciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 453);
+            this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.pnlCompra);
             this.Controls.Add(this.cmbMovAlmacen);
             this.Controls.Add(this.btnVolver);
@@ -177,6 +188,7 @@ namespace ProductosApp.Formularios
             this.pnlCompra.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -191,5 +203,6 @@ namespace ProductosApp.Formularios
         private System.Windows.Forms.Panel pnlCompra;
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.NumericUpDown nudPrecio;
+        private System.Windows.Forms.Label lblCantidad;
     }
 }

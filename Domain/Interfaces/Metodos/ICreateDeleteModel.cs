@@ -7,6 +7,7 @@ namespace Domain.Interfaces.Metodos
     public interface ICreateDeleteModel<T>
     {
         void Add(T t);
-        bool Delete(T t);
+        bool Delete(int i);
+        T[] FindAll();
     }
 }

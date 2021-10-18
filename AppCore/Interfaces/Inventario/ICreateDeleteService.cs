@@ -7,6 +7,7 @@ namespace AppCore.Interfaces.Inventario
     public interface ICreateDeleteService<T>
     {
         void Add(T t);
-        bool Delete(T t);
+        bool Delete(int i);
+        T[] FindAll();
     }
 }

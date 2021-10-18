@@ -36,7 +36,7 @@ namespace ProductosApp
             var container = builder.Build();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmProductManager(container.Resolve<IMovimientoService>(), container.Resolve<IProdService>()));
+            Application.Run(new FrmProductManager(container.Resolve<IProductoService>()));
             //Application.Run(new FrmTransacciones());
         }
     }

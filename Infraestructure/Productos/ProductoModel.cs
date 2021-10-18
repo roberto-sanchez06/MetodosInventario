@@ -138,7 +138,7 @@ namespace Infraestructure.Productos
 
         public string GetProductosAsJson()
         {
-            return JsonConvert.SerializeObject(productos);
+            return JsonConvert.SerializeObject(productos, Formatting.Indented);
         }
 
         public Producto[] GetProductosOrderByPrecio()

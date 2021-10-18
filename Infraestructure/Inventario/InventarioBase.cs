@@ -9,12 +9,12 @@ namespace Infraestructure.Inventario
     public abstract class InventarioBase : IIventarioModel
     {
         protected Producto[] productos;
-        protected int existencias;
-        protected decimal valorInventario;
-        protected int noCompras;
-        protected int noSalidas;
-        protected decimal totalCompras;
-        protected decimal totalVentas;
+        protected int existencias=0;
+        protected decimal valorInventario=0;
+        protected int noCompras=0;
+        protected int noSalidas=0;
+        protected decimal totalCompras=0;
+        protected decimal totalVentas=0;
         public void Add(Producto t)
         {
             if (productos == null)
@@ -43,36 +43,36 @@ namespace Infraestructure.Inventario
         public abstract decimal CalcularValorSalida(int salida);
 
         //revisar delete 
-        public bool Delete(Producto t)
+        public bool Delete(int indice)
         {
-            if (t == null)
+            if (indice<0)
             {
-                throw new ArgumentException("El producto no puede ser null.");
+                throw new ArgumentException("El indice es incorrecto");
             }
             if(productos == null)
             {
                 throw new ArgumentException("No hay productos");
             }
-            //int index = GetIndexById(p.Id);
-            int index = int.MinValue, i = 0;
-            foreach (Producto p in productos)
-            {
-                //ver esta linea de codigo
-                if (p.Equals(t))
-                {
-                    index = i;
-                    break;
-                }
-                i++;
-            }
-            if (index < 0)
-            {
-                throw new Exception($"El producto no existe.");
-            }
+            ////int index = GetIndexById(p.Id);
+            //int index = int.MinValue, i = 0;
+            //foreach (Producto p in productos)
+            //{
+            //    //ver esta linea de codigo
+            //    if (p.Equals(t))
+            //    {
+            //        index = i;
+            //        break;
+            //    }
+            //    i++;
+            //}
+            //if (index < 0)
+            //{
+            //    throw new Exception($"El producto no existe.");
+            //}
 
-            if (index != productos.Length - 1)
+            if (indice != productos.Length - 1)
             {
-                productos[index] = productos[productos.Length - 1];
+                productos[indice] = productos[productos.Length - 1];
             }
 
             Producto[] tmp = new Producto[productos.Length - 1];
@@ -94,13 +94,13 @@ namespace Infraestructure.Inventario
             while (productos[0].Existencia < salida)
             {
                 salida -= productos[0].Existencia;
-                Delete(productos[0]);
+                Delete(0);
                 Array.Sort(productos, new Producto.ProductoCompareFechaAdq());
             }
             productos[0].Existencia -= salida;
             if (productos[0].Existencia == 0)
             {
-                Delete(productos[0]);
+                Delete(0);
                 Array.Sort(productos, new Producto.ProductoCompareFechaAdq());
             }
         }
@@ -123,6 +123,11 @@ namespace Infraestructure.Inventario
         public decimal GetTotalVentas()
         {
             return totalVentas;
+        }
+
+        public Producto[] FindAll()
+        {
+            return productos;
         }
     }
 }

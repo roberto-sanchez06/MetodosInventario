@@ -27,12 +27,12 @@ namespace Infraestructure.Inventario
             while (productos[productos.Length-1].Existencia < salida)
             {
                 salida -= productos[productos.Length - 1].Existencia;
-                Delete(productos[productos.Length-1]);
+                Delete(productos.Length-1);
             }
             productos[productos.Length - 1].Existencia -= salida;
             if (productos[productos.Length - 1].Existencia == 0)
             {
-                Delete(productos[productos.Length - 1]);
+                Delete(productos.Length - 1);
             }
         }
     }

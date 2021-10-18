@@ -31,10 +31,11 @@ namespace ProductosApp.Formularios
         {
             this.rtbProductViewer = new System.Windows.Forms.RichTextBox();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnManejarInv = new System.Windows.Forms.Button();
+            this.btnValorarInv = new System.Windows.Forms.Button();
             this.cmbValoracionInv = new System.Windows.Forms.ComboBox();
             this.txtFinder = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rtbProductViewer
@@ -56,15 +57,15 @@ namespace ProductosApp.Formularios
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnManejarInv
+            // btnValorarInv
             // 
-            this.btnManejarInv.Location = new System.Drawing.Point(482, 14);
-            this.btnManejarInv.Name = "btnManejarInv";
-            this.btnManejarInv.Size = new System.Drawing.Size(124, 23);
-            this.btnManejarInv.TabIndex = 2;
-            this.btnManejarInv.Text = "Aplicar Valoracion Inventario";
-            this.btnManejarInv.UseVisualStyleBackColor = true;
-            this.btnManejarInv.Click += new System.EventHandler(this.btnManejarInv_Click);
+            this.btnValorarInv.Location = new System.Drawing.Point(482, 14);
+            this.btnValorarInv.Name = "btnValorarInv";
+            this.btnValorarInv.Size = new System.Drawing.Size(173, 23);
+            this.btnValorarInv.TabIndex = 2;
+            this.btnValorarInv.Text = "Simular valoracion de inventario";
+            this.btnValorarInv.UseVisualStyleBackColor = true;
+            this.btnValorarInv.Click += new System.EventHandler(this.btnManejarInv_Click);
             // 
             // cmbValoracionInv
             // 
@@ -77,7 +78,7 @@ namespace ProductosApp.Formularios
             // 
             // txtFinder
             // 
-            this.txtFinder.Location = new System.Drawing.Point(318, 15);
+            this.txtFinder.Location = new System.Drawing.Point(339, 15);
             this.txtFinder.Name = "txtFinder";
             this.txtFinder.Size = new System.Drawing.Size(125, 20);
             this.txtFinder.TabIndex = 4;
@@ -85,23 +86,32 @@ namespace ProductosApp.Formularios
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(661, 15);
+            this.button1.Location = new System.Drawing.Point(678, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(303, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(22, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Id: ";
             // 
             // FrmProductManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 410);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtFinder);
             this.Controls.Add(this.cmbValoracionInv);
-            this.Controls.Add(this.btnManejarInv);
+            this.Controls.Add(this.btnValorarInv);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.rtbProductViewer);
             this.Name = "FrmProductManager";
@@ -116,9 +126,10 @@ namespace ProductosApp.Formularios
 
         private System.Windows.Forms.RichTextBox rtbProductViewer;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnManejarInv;
+        private System.Windows.Forms.Button btnValorarInv;
         private System.Windows.Forms.ComboBox cmbValoracionInv;
         private System.Windows.Forms.TextBox txtFinder;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
