@@ -24,22 +24,39 @@ namespace ProductosApp.Formularios
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Product p = new Product()
+
+            if (string.IsNullOrEmpty(txtNombre.Text)|| string.IsNullOrEmpty(txtDesc.Text)|| cmbMeasureUnit.SelectedIndex == -1)
             {
-                Id = prodService.GetLastProductId() + 1,
-                Nombre = txtNombre.Text,
-                Descripcion = txtDesc.Text,
-                FechaVencimiento = dtpCaducity.Value,
-                UnidadMedida = (UnidadMedida)cmbMeasureUnit.SelectedIndex
-            };
-            Entrada ent = new Entrada((int)nudExist.Value, DateTime.Now, p)
+
+
+                MessageBox.Show("hay campos vacios");
+
+
+
+            }
+            else
             {
-                Precio = nudPrice.Value,
-                PrecioTotal = nudPrice.Value * (int)nudExist.Value
-            };
-            prodService.Create(p);
-            movimientoService.Create(ent);
-            Dispose();
+                Product p = new Product()
+                {
+                    Id = prodService.GetLastProductId() + 1,
+                    Nombre = txtNombre.Text,
+                    Descripcion = txtDesc.Text,
+                    FechaVencimiento = dtpCaducity.Value,
+                    UnidadMedida = (UnidadMedida)cmbMeasureUnit.SelectedIndex
+                };
+                Entrada ent = new Entrada((int)nudExist.Value, DateTime.Now, p)
+                {
+                    Precio = nudPrice.Value,
+                    PrecioTotal = nudPrice.Value * (int)nudExist.Value
+                };
+                prodService.Create(p);
+                movimientoService.Create(ent);
+                Dispose();
+            }
+            
+            
+            
+           
         }
 
         private void FormInventario_Load(object sender, EventArgs e)

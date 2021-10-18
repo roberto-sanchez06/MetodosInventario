@@ -6,31 +6,28 @@ using Domain.Entities.Productos;
 
 namespace AppCore.Processses.Inventories
 {
-    public class MetodoPromPonderado : IValoracionInventario
+    public class MetodoPromPonderado : ValoracionInventarioBase
     {
-        public decimal CalcularCostoVenta()
+        
+ 
+
+        public override decimal CalcularCostoVenta(ref IMovimientoService ent, Salida s)
         {
-            throw new NotImplementedException();
+            decimal saldo = 0;
+            int unidades = 0;
+            foreach(Entrada e in ent.GetEntradas())
+            {
+                saldo = saldo + e.PrecioTotal;
+                unidades = unidades + e.CantidadDisponible;
+            }
+            return saldo / unidades;
+
         }
 
-        public decimal CalcularCostoVenta(ref Entrada[] ent, Salida s)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public decimal CalcularValorExist(MovAlmacen[] ma)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public decimal CalcularValorInventario()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Vender(ref Entrada[] ent, int salida)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

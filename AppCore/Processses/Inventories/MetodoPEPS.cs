@@ -6,7 +6,7 @@ using Domain.Entities.Productos;
 
 namespace AppCore.Processses.Inventories
 {
-    public class MetodoPEPS : ValoracionInventarioBase
+    public class MetodoPEPS : ValoracionInventarioBase, IValoracionInventario
     {
         public override decimal CalcularCostoVenta(ref IMovimientoService en, Salida s)
         {

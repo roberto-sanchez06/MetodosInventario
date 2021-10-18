@@ -13,6 +13,11 @@ namespace AppCore.Processses.Inventories
             throw new NotImplementedException();
         }
 
+        public decimal CalcularCostoVenta(ref IMovimientoService ent, Salida s)
+        {
+            throw new NotImplementedException();
+        }
+
         public decimal CalcularValorExist(MovAlmacen[] ma)
         {
             throw new NotImplementedException();
@@ -24,6 +29,11 @@ namespace AppCore.Processses.Inventories
         }
 
         public void Vender(ref Entrada[] ent, int salida)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Vender(ref IMovimientoService ent, int salida)
         {
             throw new NotImplementedException();
         }
