@@ -9,9 +9,9 @@ namespace AppCore.Services
 {
     public class MovimientoService : IMovimientoService
     {
-        private IMoviemntoService MovModel;
+        private IMovAlmacenModel MovModel;
 
-        public MovimientoService(IMoviemntoService movModel)
+        public MovimientoService(IMovAlmacenModel movModel)
         {
             MovModel = movModel;
         }
@@ -47,6 +47,11 @@ namespace AppCore.Services
             return MovModel.GetExistencias();
         }
 
+        public int GetLastIdMov()
+        {
+            return MovModel.GetLastIdMov();
+        }
+
         public MovAlmacen[] GetMovimientosByProducto(Product p)
         {
             return MovModel.GetMovimientosByProducto(p);
@@ -60,6 +65,11 @@ namespace AppCore.Services
         public Salida[] GetSalidas(Product p)
         {
             return MovModel.GetSalidas(p);
+        }
+
+        public MovAlmacen MovimientoById(int id)
+        {
+            return MovModel.MovimientoById(id);
         }
 
         public int Update(MovAlmacen t)

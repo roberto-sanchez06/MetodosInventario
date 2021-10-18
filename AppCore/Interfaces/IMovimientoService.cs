@@ -15,5 +15,7 @@ namespace AppCore.Interfaces
         Entrada[] GetEntradas(Product p);
         //obtener salidas de un producto especifico
         Salida[] GetSalidas(Product p);
+        MovAlmacen MovimientoById(int id);
+        int GetLastIdMov();
     }
 }

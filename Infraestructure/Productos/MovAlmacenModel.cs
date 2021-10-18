@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Infraestructure.Productos
 {
-    public class MovAlmacenModel : IMoviemntoService
+    public class MovAlmacenModel : IMovAlmacenModel
     {
         private MovAlmacen[] movimientos;
         public void Create(MovAlmacen t)
@@ -88,7 +88,8 @@ namespace Infraestructure.Productos
             foreach (MovAlmacen m in movimientos)
             {
                 //TODO revisar aqui
-                if (m.Producto.Equals(p))
+                if (m.Producto.Id == p.Id && m.Producto.Nombre == p.Nombre && m.Producto.Descripcion == p.Descripcion
+                    && m.Producto.FechaVencimiento == p.FechaVencimiento && m.Producto.UnidadMedida == p.UnidadMedida)
                 {
                     Add(m, ref movs);
                 }
@@ -145,6 +146,42 @@ namespace Infraestructure.Productos
             return sal;
         }
 
+        public MovAlmacen MovimientoById(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException($"El Id: {id} no es valido.");
+            }
+
+            int index = GetIndexById(id);
+
+            return index < 0 ? null : movimientos[index];
+        }
+        private int GetIndexById(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("El id no puede ser negativo o cero.");
+            }
+
+            int index = int.MinValue, i = 0;
+            if (movimientos == null)
+            {
+                return index;
+            }
+
+            foreach (MovAlmacen p in movimientos)
+            {
+                if (p.Id == id)
+                {
+                    index = i;
+                    break;
+                }
+                i++;
+            }
+
+            return index;
+        }
         public int Update(MovAlmacen t)
         {
             throw new NotImplementedException();
@@ -163,6 +200,20 @@ namespace Infraestructure.Productos
             Array.Copy(ma, tmp, ma.Length);
             tmp[tmp.Length - 1] = mov;
             ma = tmp;
+        }
+
+        public int GetLastIdMov()
+        {
+            try
+            {
+
+                return movimientos == null ? 0 : movimientos[movimientos.Length - 1].Id;
+            }
+            catch (IndexOutOfRangeException)
+            {
+
+                return 0;
+            }
         }
     }
 }

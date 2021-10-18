@@ -18,7 +18,10 @@ namespace Domain.Entities.Productos
         public DateTime Fecha { get; set; }
         public decimal Precio { get; set; }
         public decimal PrecioTotal { get; set; }
+        public int Id { get; set; }
         public abstract string MostrarDatos();
+        //TODO ver bien esto
+        public abstract int AfectacionInventario();
         public class MovAlmacenFechaComparer : IComparer<MovAlmacen>
         {
             public int Compare(MovAlmacen x, MovAlmacen y)

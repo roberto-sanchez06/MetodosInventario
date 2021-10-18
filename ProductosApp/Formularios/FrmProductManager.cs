@@ -65,17 +65,31 @@ namespace ProductosApp.Formularios
             frmInv.movimientoService = movimientoService;
             frmInv.prodService = prodService;
             frmInv.ShowDialog();
-            //rtbProductViewer.Text = "";
-            //foreach (Product p in prodService.FindAll())
-            //{
-            //    rtbProductViewer.AppendText(p.Nombre+"\n");
-            //}
-            rtbProductViewer.Text += movimientoService.FindAll()[prodService.GetLastProductId()-1].Producto.Descripcion;
+            rtbProductViewer.Text = "";
+            foreach (Product p in prodService.FindAll())
+            {
+                rtbProductViewer.AppendText(p.Id+"\t"+p.Nombre+"\n");
+            }
+            rtbProductViewer.Text = "";
+            //rtbProductViewer.AppendText(movimientoService.FindAll()[prodService.GetLastProductId()-1].Producto.Nombre);
+            foreach (MovAlmacen p in movimientoService.FindAll())
+            {
+                rtbProductViewer.AppendText(movimientoService.FindAll()[prodService.GetLastProductId() - 1].Producto.Nombre);
+            }
         }
 
         private void FrmProductManager_Load(object sender, EventArgs e)
         {
             cmbValoracionInv.Items.AddRange(Enum.GetValues(typeof(ValoracionInventario)).Cast<object>().ToArray());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            rtbProductViewer.Text = "";
+            foreach (Entrada en in movimientoService.GetEntradas(prodService.GetProductById(int.Parse(txtFinder.Text))))
+            {
+                rtbProductViewer.AppendText("Id: "+en.Id+"\t"+"Nombre: "+en.Producto.Nombre+"\t"+"Cant: "+en.CantidadDisponible+"\tEntradaVendida: "+en.EntradaVendida.ToString());
+            }
         }
     }
 }

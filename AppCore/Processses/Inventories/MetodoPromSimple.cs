@@ -15,6 +15,7 @@ namespace AppCore.Processses.Inventories
             {
                 costo += e.Precio;
             }
+            Vender(ref ent, s);
             return costo / ent.GetEntradas(s.Producto).Length;
         }
     }

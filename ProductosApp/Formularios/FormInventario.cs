@@ -47,7 +47,8 @@ namespace ProductosApp.Formularios
                 Entrada ent = new Entrada((int)nudExist.Value, DateTime.Now, p)
                 {
                     Precio = nudPrice.Value,
-                    PrecioTotal = nudPrice.Value * (int)nudExist.Value
+                    PrecioTotal = nudPrice.Value * (int)nudExist.Value,
+                    Id = movimientoService.GetLastIdMov() + 1
                 };
                 prodService.Create(p);
                 movimientoService.Create(ent);

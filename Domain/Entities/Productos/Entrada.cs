@@ -18,5 +18,10 @@ namespace Domain.Entities.Productos
         {
             return string.Format("{0,-5:d} {1,20:d} {2,20:f} {3,20:f}\n",Fecha, Cantidad, Precio, PrecioTotal);
         }
+
+        public override int AfectacionInventario()
+        {
+            return Cantidad;
+        }
     }
 }

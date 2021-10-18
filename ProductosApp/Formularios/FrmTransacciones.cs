@@ -35,10 +35,12 @@ namespace ProductosApp.Formularios
                 Entrada ent = new Entrada((int)nudCantidad.Value, DateTime.Now, prod)
                 {
                     Precio = nudPrecio.Value,
-                    PrecioTotal = nudPrecio.Value * (int)nudCantidad.Value
+                    PrecioTotal = nudPrecio.Value * (int)nudCantidad.Value,
+                    Id = mov.GetLastIdMov() + 1
                 };
                 mov.Create(ent);
                 rtbInventoryViewer.AppendText(ent.MostrarDatos());
+                rtbInventoryViewer.AppendText("\t" + ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString() + "\n");
             }
             catch (Exception ex)
             {
@@ -54,6 +56,7 @@ namespace ProductosApp.Formularios
             {
                 rtbInventoryViewer.AppendText(m.MostrarDatos());
             }
+            rtbInventoryViewer.AppendText("\t"+ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString()+"\n");
         }
 
         private void cmbMovAlmacen_SelectedIndexChanged(object sender, EventArgs e)
@@ -80,11 +83,12 @@ namespace ProductosApp.Formularios
         {
             //try
             //{
-                Salida s = new Salida((int)nudCantidad.Value,DateTime.Now,prod);
+                Salida s = new Salida((int)nudCantidad.Value, DateTime.Now, prod) { Id = mov.GetLastIdMov() + 1 };
                 s.Precio=ValoracionInventarioFactory.CreateInstance(vi).CalcularCostoVenta(ref mov,s);
                 s.PrecioTotal = s.Precio * s.Cantidad;
                 mov.Create(s);
                 rtbInventoryViewer.AppendText(s.MostrarDatos());
+                rtbInventoryViewer.AppendText("\t" + ValoracionInventarioFactory.CreateInstance(vi).CalcularValorExist(mov.GetMovimientosByProducto(prod)).ToString() + "\n");
             //}
             //catch (Exception ex)
             //{

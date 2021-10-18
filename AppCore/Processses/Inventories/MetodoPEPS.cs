@@ -6,7 +6,7 @@ using Domain.Entities.Productos;
 
 namespace AppCore.Processses.Inventories
 {
-    public class MetodoPEPS : ValoracionInventarioBase, IValoracionInventario
+    public class MetodoPEPS : ValoracionInventarioBase
     {
         public override decimal CalcularCostoVenta(ref IMovimientoService en, Salida s)
         {
@@ -15,7 +15,7 @@ namespace AppCore.Processses.Inventories
                 throw new ArgumentNullException("Salida nula");
             }
             decimal valor = en.GetEntradas()[0].Precio;
-            Vender(ref en, s.Cantidad);
+            Vender(ref en, s);
             return valor;
         }
     }

@@ -15,6 +15,8 @@ namespace Domain.Entities
         public decimal Precio { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public UnidadMedida UnidadMedida { get; set; }
+        //agregado
+        public DateTime FechaAdquisicion { get; set; }
 
         public class ProductoOrderByPrecio : IComparer<Producto>
         {
@@ -33,9 +35,21 @@ namespace Domain.Entities
                 }
             }
         }
+        public class ProductoCompareFechaAdq : IComparer<Producto>
+        {
+            public int Compare(Producto x, Producto y)
+            {
+                return x.FechaAdquisicion.CompareTo(y.FechaAdquisicion);
+            }
+        }
         public string MostrarDatos()
         {
-            return string.Format("{0,-5:d} {1,20} {2, 20:d} {3, 20:d}\n", Id, Nombre, FechaVencimiento, UnidadMedida);
+            return string.Format("{0,-5:d} {1,20:d} {2,10: d} {3,20:f} {4,20:f} \n",
+                            $"{Id}", $"{FechaAdquisicion}", $"{Existencia}", $"{Precio}", $"{ Precio * Existencia }");
         }
+        //public string MostrarDatos()
+        //{
+        //    return string.Format("{0,-5:d} {1,20} {2, 20:d} {3, 20:d}\n", Id, Nombre, FechaVencimiento, UnidadMedida);
+        //}
     }
 }
