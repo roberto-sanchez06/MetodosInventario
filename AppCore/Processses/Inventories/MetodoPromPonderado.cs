@@ -14,17 +14,25 @@ namespace AppCore.Processses.Inventories
             int unidades = 0;
             foreach(Entrada e in ent.GetEntradas(s.Producto))
             {
-                saldo = saldo + e.PrecioTotal;
                 unidades = unidades + e.CantidadDisponible;
+                if (unidades ==0)
+                {
+                    throw new ArgumentException("Existencias agotadas");
+                }
+                //redefinir en las clases de movimiento
+                saldo = saldo + e.PrecioTotal;
             }
+            if (ent.GetSalidas(s.Producto) != null)
+            {
+                foreach (Salida sal in ent.GetSalidas(s.Producto))
+                {
+                    unidades -= sal.Cantidad;
+                    saldo -= sal.PrecioTotal;
+                }
+            }
+            
             return saldo / unidades;
 
         }
-
-       
-
-       
-
-      
     }
 }

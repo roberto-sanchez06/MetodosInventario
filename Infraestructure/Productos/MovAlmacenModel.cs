@@ -107,26 +107,42 @@ namespace Infraestructure.Productos
                     Add(m, ref salidas);
                 }
             }
-            return (Salida[])salidas;
+            if (salidas != null)
+            {
+                string s = JsonConvert.SerializeObject(salidas);
+                Salida[] sal = JsonConvert.DeserializeObject<List<Salida>>(s).ToArray();
+                return sal;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public Salida[] GetSalidas(Product p)
         {
-            MovAlmacen[] movs = null;
+            MovAlmacen[] salidas = null;
             if (p is null)
             {
                 throw new ArgumentNullException("Producto nulo");
             }
-
+            if (GetSalidas() == null)
+            {
+                return null;
+            }
             foreach (Salida m in GetSalidas())
             {
                 //TODO revisar aqui
-                if (m.Producto.Equals(p))
+                //da error con equal
+                if (m.Producto.Id == p.Id && m.Producto.Nombre == p.Nombre && m.Producto.Descripcion == p.Descripcion
+                    && m.Producto.FechaVencimiento == p.FechaVencimiento && m.Producto.UnidadMedida == p.UnidadMedida)
                 {
-                    Add(m, ref movs);
+                    Add(m, ref salidas);
                 }
             }
-            return (Salida[])movs;
+            string s = JsonConvert.SerializeObject(salidas);
+            Salida[] sal = JsonConvert.DeserializeObject<List<Salida>>(s).ToArray();
+            return sal;
         }
 
         public int Update(MovAlmacen t)

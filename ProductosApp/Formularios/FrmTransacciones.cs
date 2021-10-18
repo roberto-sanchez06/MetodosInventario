@@ -83,6 +83,7 @@ namespace ProductosApp.Formularios
                 Salida s = new Salida((int)nudCantidad.Value,DateTime.Now,prod);
                 s.Precio=ValoracionInventarioFactory.CreateInstance(vi).CalcularCostoVenta(ref mov,s);
                 s.PrecioTotal = s.Precio * s.Cantidad;
+                mov.Create(s);
                 rtbInventoryViewer.AppendText(s.MostrarDatos());
             //}
             //catch (Exception ex)
