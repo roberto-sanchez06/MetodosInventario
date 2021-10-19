@@ -12,7 +12,6 @@ using AppCore.Interfaces;
 using AppCore.Interfaces.Inventario;
 using AppCore.Services.Inventario;
 using Domain.Entities;
-using Domain.Entities.Productos;
 using Domain.Enums;
 
 namespace ProductosApp.Formularios

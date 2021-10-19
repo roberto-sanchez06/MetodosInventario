@@ -28,11 +28,7 @@ namespace ProductosApp
             builder.RegisterType<ProductoListModel>().As<IProductoModel>();
             builder.RegisterType<ProductoModel>().As<IProductoModel>();
             builder.RegisterType<ProductoService>().As<IProductoService>();
-            builder.RegisterType<MovAlmacenModel>().As<IMovAlmacenModel>();
-            builder.RegisterType<MovimientoService>().As<IMovimientoService>();
-            builder.RegisterType<ProdModel>().As<IProdModel>();
-            builder.RegisterType<ProductService>().As<IProdService>();
-
+            
             var container = builder.Build();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

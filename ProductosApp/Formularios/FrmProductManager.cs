@@ -12,7 +12,6 @@ using AppCore.Interfaces;
 using AppCore.Services;
 using AppCore.Services.Inventario;
 using Domain.Entities;
-using Domain.Entities.Productos;
 using Domain.Enums;
 using Domain.Interfaces;
 
