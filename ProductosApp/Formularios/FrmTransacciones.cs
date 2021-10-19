@@ -21,13 +21,11 @@ namespace ProductosApp.Formularios
     {
         private InventarioService inventario;
         private Producto p;
-        private int i;
-        public FrmTransacciones(InventarioService inventario, Producto p, int i)
+        public FrmTransacciones(InventarioService inventario, Producto p)
         {
             InitializeComponent();
             this.inventario = inventario;
             this.p = p;
-            this.i = i;
             inventario.Add(p);
         }
 
@@ -58,7 +56,6 @@ namespace ProductosApp.Formularios
 
         private void FrmTransacciones_Load(object sender, EventArgs e)
         {
-            rtbInventoryViewer.Text = i.ToString();
             cmbMovAlmacen.Items.AddRange(Enum.GetValues(typeof(MovimientoAlmacen)).Cast<object>().ToArray());
             //cmbTipoValoracion.Items.AddRange(Enum.GetValues(typeof(ValoracionInventario)).Cast<object>().ToArray());
             rtbInventoryViewer.Text += string.Format("{0,33:d} {1,20:d} {2,22: d} {3,20:f} {4,20:f} \n",
@@ -93,17 +90,21 @@ namespace ProductosApp.Formularios
 
         private void btnVenta_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            int salida = (int)nudCantidad.Value;
-            decimal precio = inventario.CalcularValorSalida(salida);
-            rtbInventoryViewer.AppendText("(Nueva salida): "+string.Format("{0,-3:d} {1,20:d} {2,10: d} {3,20:f} {4,20:f} \n",
+            try
+            {
+                int salida = (int)nudCantidad.Value;
+                if (salida > inventario.ObtenerExistencias())
+                {
+                    throw new ArgumentException("NO hay suficientes productos");
+                }
+                decimal precio = inventario.CalcularValorSalida(salida);
+                rtbInventoryViewer.AppendText("(Nueva salida): "+string.Format("{0,-3:d} {1,20:d} {2,10: d} {3,20:f} {4,20:f} \n",
                             $"{p.Id}", $"{DateTime.Now}", $"{salida}", $"{precio}", $"{ precio * salida }"));
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -20,13 +20,9 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmProductManager : Form
     {
-        //private IMovimientoService movimientoService;
-        //private IProdService prodService;
         private IProductoService productoService;
         public FrmProductManager(IProductoService productoService)
         {
-            //this.prodService=prodService;
-            //this.movimientoService = movimientoService;
             InitializeComponent();
             this.productoService = productoService;
         }
@@ -52,8 +48,7 @@ namespace ProductosApp.Formularios
                 {
                     throw new ArgumentException("Producto no encontrado");
                 }
-                rtbProductViewer.Text=cmbValoracionInv.SelectedIndex.ToString();
-                FrmTransacciones frmTrans = new FrmTransacciones(new InventarioService(InventarioValoracionFactory.CreateInstance((ValoracionInventario)cmbValoracionInv.SelectedIndex)), p, cmbValoracionInv.SelectedIndex);
+                FrmTransacciones frmTrans = new FrmTransacciones(new InventarioService(InventarioValoracionFactory.CreateInstance((ValoracionInventario)cmbValoracionInv.SelectedIndex)), p);
                 //frmTrans.prod = p;
                 //frmTrans.mov = movimientoService;
                 frmTrans.ShowDialog();
@@ -76,11 +71,6 @@ namespace ProductosApp.Formularios
         private void FrmProductManager_Load(object sender, EventArgs e)
         {
             cmbValoracionInv.Items.AddRange(Enum.GetValues(typeof(ValoracionInventario)).Cast<object>().ToArray());
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

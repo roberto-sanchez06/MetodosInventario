@@ -86,7 +86,6 @@ namespace Infraestructure.Inventario
         {
             return valorInventario;
         }
-        //ver si este metodo puede ser virtual
         public virtual void Vender(int salida)
         {
             noSalidas++;
